@@ -1,0 +1,12 @@
+﻿<?xml version='1.0'?>
+<area>
+    <areaDesc>test4 ad</areaDesc>
+    <polygon>37.3789,128.7543 35.9513,128.0292 36.4301,129.4354 37.3789,128.7543</polygon>
+    <circle/>
+    <geocode>
+        <valueName>sd</valueName>
+        <value>1</value>
+    </geocode>
+    <altitude>22</altitude>
+    <ceiling>123</ceiling>
+</area>

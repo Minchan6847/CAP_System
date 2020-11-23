@@ -1,0 +1,9 @@
+﻿<?xml version='1.0'?>
+<area>
+    <areaDesc>test3 ad</areaDesc>
+    <polygon>37.4400,127.2491 36.3771,126.5021 35.8000,127.9413 36.3417,129.0179 37.4400,127.2491</polygon>
+    <circle>37.910,127.853 115</circle>
+    <geocode/>
+    <altitude/>
+    <ceiling>121</ceiling>
+</area>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title><%= title %></title>
+	<%- include('./part/header') %>
+</head>
+
+<body class="bg-light" onLoad="javascript:initialize();">
+	<div class="container">
+		<div class="py-5 text-center">
+			<img class="d-block mx-auto mb-4" src="/images/CAP_logo.png" alt="" height="72" />
+			<h2>CAP Creator</h2>
+			<p class="lead">[Step 3] <%= title %></p>
+		</div>
+		<ul class="nav justify-content-end">
+			<li class="nav-item">
+				<a class="nav-link" href="http://localhost:5501/header.html">Header</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="http://localhost:5501/info.html">Info</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="http://localhost:5501/area.html">Area</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link " href="http://localhost:5501/resource.html" tabindex="-1" aria-disabled="true">Resource</a>
+			</li>
+		</ul>
+		<form name="capForm" class="a" action="/send" method="POST">
+			<p style="color:red">* 표시는 필수 사항임을 의미합니다.</p>
+			<!--<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+				<legend>지역</legend>-->
+			<div class="form-group">
+				<label class="field_label" for="areaDesc">지역명(areaDesc)<span style="color:red">*</span></label>
+				<textarea name="areaDesc" id="areaDesc" class="form-control" data-mini="true"
+					placeholder="EXTREME NORTH CENTRAL TUOLU MNE COUNTY IN CALIFORNIA, EXTREME NOR THEASTERN 915 CALAVERAS COUNTY IN CALI FORNIA, SOUTHWESTERN ALPINE COUNTY IN CALIFORNIA"></textarea>
+			</div>
+			<div class="form-group">
+				<label class="field_label" for="capPolygon">다각형(polygon)</label>
+				<input onchange="makeXML();" type="text" name="capPolygon" id="capPolygon" class="form-control" value=""
+					placeholder="38.47,-120.14 38.34,-119.95 38.52,-119.74 38.62,-119.89 38.47,-120.14" />
+			</div>
+			<div class="form-group">
+				<label class="field_label" for="capCircle">원(circle)</label>
+				<input onchange="makeXML();" type="text" name="capCircle" id="capCircle" class="form-control" value=""
+					placeholder="중심, 반지름" />
+			</div>
+			<fieldset name="geocode_information" data-role="controlgroup" data-type="horizontal" data-mini="true">
+				<legend>지역코드(geocode)</legend>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label class="field_label" for="geocodeValueName">데이터이름(valueName)</label>
+						<input type="text" name="geocodeValueName" id="geocodeValueName" class="form-control" value=""
+							placeholder="SAME" />
+					</div>
+					<div class="form-group col-md-6">
+						<label class="field_label" for="geocodeValue">데이터값(value)</label>
+						<input type="text" name="geocodeValue" id="geocodeValue" class="form-control" value=""
+							placeholder="006003" />
+					</div>
+				</div>
+			</fieldset>
+			<!--</fieldset>-->
+
+			<fieldset name="altitude_information" data-role="controlgroup" data-type="horizontal" data-mini="true">
+				<legend>고도</legend>
+				<div class="row">
+					<div class="form-group col-md-6">
+						<label class="field_label" for="altitude">고도(altitude)</label>
+						<input type="text" name="altitude" id="altitude" class="form-control" value="" placeholder="" />
+					</div>
+					<div class="form-group col-md-6">
+						<label class="field_label" for="ceiling">최고고도(ceiling)</label>
+						<input type="text" name="ceiling" id="ceiling" class="form-control" value="" placeholder="" />
+					</div>
+				</div>
+			</fieldset>
+			<div class="form-group">
+				<label class="field_label" for="file_name">파일 이름(file_name)<span style="color:red">*</span>: <small>xml로 저장할 때 파일의 이름</small></label>
+				<input type="text" name="file_name" id="file_name" class="form-control" value="" placeholder="filename" />
+			</div>
+			<div id="map_canvas" style="width: 600px; height: 400px"></div>
+			<br>
+			<a class="btn btn-primary" href="http://localhost:5501/info.html" role="button">Previous</a>
+			<a class="btn btn-primary" href="http://localhost:5501/resource.html" role="button">Next</a>
+			<input class="btn btn-primary" type="submit" role="button" value="제출" />
+			<br>
+			<br>
+			<h4>서버에 저장된 CAP 파일 리스트</h4>
+			<p><small>(클릭하면 지도에 해당 CAP의 지역를 표시합니다.)</small></p>
+			<ul id="file_list">
+				<% for(let i=0; i<file_list.length; i++){ %>
+				<li>
+					<a class="file_list" href="#map_canvas" id=<%= "file_list_" + i %>><%= file_list[i].FILE_NAME %></a>
+				</li>
+				<% } %>
+			</ul>
+		</form>
+		<footer class="my-5 pt-5 text-muted text-center text-small">
+			<p class="mb-1">COPYRIGHT © 2020 MINCHAN ALL RIGHTS RESERVED.</p>
+		</footer>
+	</div>
+	<script type="text/javascript">
+		// 이 함수는 일반적으로 사용자가 HTML 문서에서 내용을 잘라내어 붙여 넣을 때 발생하는 XML 요소에서 유효하지 않은 마크 업을 제거합니다.
+		// 다시 말해, stiringToXML에 HTML tag가 있으면 제거해서 리턴.
+		function cleanXml(stringToXML) {
+			// This function removes markup that is not valid in an XML element, 
+			// commonly occuring when users cut and paste content from an HTML document.
+
+			// elementDiv 변수가 초기화되지 않았거나 선언되지 않았다면
+			if (typeof elementDiv === "undefined") {
+				var elementDiv = document.createElement("div");
+			}
+			elementDiv.innerHTML = stringToXML.trim();
+			return elementDiv.textContent;  // 해당 element의 텍스트 리턴
+		}
+
+		// makeXML()가 실행되는 시나리오 2개
+		// 1. 사용자가 polygon or circle input element에 값을 입력하면 onchange 이벤트가 발생되면서 아래 함수 실행됨
+		// 2. 사용자가 map에서 도형을 그리면 polygonDrawnOnMap()함수가 실행되어 그려진 해당 도형의 정보가 
+		//		해당 도형의 input element에 입력되면서 onchange 이벤트가 발생되면서 아래 함수가 실행됨
+		function makeXML() {
+			// polygon input element의 값을 받아와서 map에 해당 도형을 그림
+			// 그 값이 ""면 map에서 polygon 제거 (초기화 역할)
+			document.capForm.capPolygon.value = cleanXml(document.capForm.capPolygon.value);
+			if (document.capForm.capPolygon.value !== "") {
+				document.capForm.capPolygon.value = polygonGivenByForm(document.capForm.capPolygon.value);
+				//alertArea = alertArea + "      <cap:polygon>" + document.capForm.capPolygon.value + "<\/cap:polygon>\n";
+			} else {
+				deleteCapPolygon();
+			}
+			// circle input element의 값을 받아와서 map에 해당 도형을 그림
+			// 그 값이 ""면 map에서 polygon 제거 (초기화 역할)
+			document.capForm.capCircle.value = cleanXml(document.capForm.capCircle.value);
+			if (document.capForm.capCircle.value !== "") {
+				document.capForm.capCircle.value = circleGivenByForm(document.capForm.capCircle.value);
+				//alertArea = alertArea + "      <cap:circle>" + document.capForm.capCircle.value + "<\/cap:circle>\n";
+			} else {
+				deleteCapCircle();
+			}
+		}
+
+		// body가 로드되면 실행됨
+		// map 초기화
+		function initialize() {
+			// called by the onload event in HTML body element
+			//setTranslation("kr-kma-en")
+			// 좌표, 줌 상수로 map을 초기화
+			initializeMap('36.57, 127.56', '7');
+			//setSelectors();
+			//makeXML();
+		}
+
+		// 파일 리스트 중 하나가 클릭되면 ajax 수행
+		$('.file_list').click(function (event) {
+			//let name = $('input[name = name]').val();
+			//Ajax GET Method TEST
+			//$('#result').html('');
+			//console.log(event.target.id);
+			//console.log(event.target);
+			//console.log($('#' + event.target.id).html());
+			$.ajax({
+				url: '/ajax',
+				dataType: 'json',
+				type: 'POST',
+				// 파일 리스트에서 눌린 항목의 파일명을 서버로 전송
+				data: { 'file_name': $('#' + event.target.id).html() },
+				// 서버로부터 선택된 파일명으로 select된 sample의 polygon과 circle의 정보를 받고 아래 문장들을 시행
+				success: function (result) {
+					if (result['result'] == true) {
+						deleteCapPolygon(); // map의 polygon 지움
+						if(result.info.POLYGON != null){
+							// 서버에서 받은 polygon 정보로 map에 polygon을 그리고 그 정보를 polygon input element에 넣음
+							document.capForm.capPolygon.value = polygonGivenByForm(result.info.POLYGON);
+						}else{
+							// 서버에서 받은 polygon 정보가 null이면 polygon input element을 빈칸으로 만듬
+							document.capForm.capPolygon.value = "";
+						}
+						deleteCapCircle(); // map의 circle 지움
+						if(result.info.CIRCLE != null){
+							// 서버에서 받은 circle 정보로 map에 circle을 그리고 그 정보를 circle input element에 넣음
+							document.capForm.capCircle.value = circleGivenByForm(result.info.CIRCLE);
+						}else{
+							// 서버에서 받은 circle 정보가 null이면 circle input element을 빈칸으로 만듬
+							document.capForm.capCircle.value = "";
+						}
+					}
+				}
+			});
+
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+﻿<?xml version='1.0'?>
+<area>
+    <areaDesc>test8 ad</areaDesc>
+    <polygon/>
+    <circle>37.1078,127.0953 46</circle>
+    <geocode>
+        <valueName>aa</valueName>
+        <value>1234</value>
+    </geocode>
+    <geocodeValue>1234</geocodeValue>
+    <altitude/>
+    <ceiling/>
+    <file_name>test8 fn</file_name>
+</area>
