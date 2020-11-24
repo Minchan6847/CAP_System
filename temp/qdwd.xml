@@ -1,0 +1,32 @@
+﻿<?xml version='1.0'?>
+<area>
+    <text-identifier>dwq</text-identifier>
+    <email-sender>ddd@dsfd.com</email-sender>
+    <datetime-local-sent>2020-09-27T15:15</datetime-local-sent>
+    <select-status>Exercise</select-status>
+    <select-msgType>Alert</select-msgType>
+    <select-scope>Public</select-scope>
+    <select-language>Korean</select-language>
+    <select-category>Rescue</select-category>
+    <datetime-local-effective>2020-09-27T15:15</datetime-local-effective>
+    <datetime-local-onset>2020-09-27T15:15</datetime-local-onset>
+    <datetime-local-expires>2020-09-27T15:15</datetime-local-expires>
+    <select-urgency>Expected</select-urgency>
+    <select-severity>Moderate</select-severity>
+    <select-certainty>Observed</select-certainty>
+    <select-responseType>None</select-responseType>
+    <text-prameterValueName>ss</text-prameterValueName>
+    <text-parameterValue>12</text-parameterValue>
+    <text-senderName>assa</text-senderName>
+    <areaDesc>aaaaa</areaDesc>
+    <polygon>35.87347,128.13217 35.87347,128.53043 36.07130,128.53043 36.07130,128.13217 35.87347,128.13217</polygon>
+    <circle>37.0113,128.3258 94</circle>
+    <geocode>
+        <valueName>sss</valueName>
+        <value>1221</value>
+    </geocode>
+    <text-resouceDesc>aa</text-resouceDesc>
+    <text-mimeType>aa</text-mimeType>
+    <text-size>1221</text-size>
+    <url-uri>http://linkkkkk.kkkk</url-uri>
+</area>

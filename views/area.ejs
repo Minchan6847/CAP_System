@@ -29,73 +29,444 @@
 		</ul>
 		<form name="capForm" class="a" action="/send" method="POST">
 			<p style="color:red">* 표시는 필수 사항임을 의미합니다.</p>
-			<!--<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
-				<legend>지역</legend>-->
-			<div class="form-group">
-				<label class="field_label" for="areaDesc">지역명(areaDesc)<span style="color:red">*</span></label>
-				<textarea name="areaDesc" id="areaDesc" class="form-control" data-mini="true"
-					placeholder="EXTREME NORTH CENTRAL TUOLU MNE COUNTY IN CALIFORNIA, EXTREME NOR THEASTERN 915 CALAVERAS COUNTY IN CALI FORNIA, SOUTHWESTERN ALPINE COUNTY IN CALIFORNIA"></textarea>
-			</div>
-			<div class="form-group">
-				<label class="field_label" for="capPolygon">다각형(polygon)</label>
-				<input onchange="makeXML();" type="text" name="capPolygon" id="capPolygon" class="form-control" value=""
-					placeholder="38.47,-120.14 38.34,-119.95 38.52,-119.74 38.62,-119.89 38.47,-120.14" />
-			</div>
-			<div class="form-group">
-				<label class="field_label" for="capCircle">원(circle)</label>
-				<input onchange="makeXML();" type="text" name="capCircle" id="capCircle" class="form-control" value=""
-					placeholder="중심, 반지름" />
-			</div>
-			<fieldset name="geocode_information" data-role="controlgroup" data-type="horizontal" data-mini="true">
-				<legend>지역코드(geocode)</legend>
+			<!----------------------------- Header Form ----------------------------->
+			<div class="formContainer">
+				<h3>Header</h3>
 				<div class="row">
-					<div class="form-group col-md-6">
-						<label class="field_label" for="geocodeValueName">데이터이름(valueName)</label>
-						<input type="text" name="geocodeValueName" id="geocodeValueName" class="form-control" value=""
-							placeholder="SAME" />
+					<div class="form-group col-md-4">
+						<label class="field_label" for="text-identifier">식별자(identifier)<span style="color:red">*</span></label>
+						<input type="text" class="form-control" name="header-identifier" id="text-identifier" value=""
+							placeholder="KSTO1055887203" required />
 					</div>
-					<div class="form-group col-md-6">
-						<label class="field_label" for="geocodeValue">데이터값(value)</label>
-						<input type="text" name="geocodeValue" id="geocodeValue" class="form-control" value=""
-							placeholder="006003" />
+					<div class="form-group col-md-4">
+						<label class="field_label" for="email-sender">송신자(sender)<span style="color:red">*</span></label>
+						<input type="email" class="form-control" name="header-sender" id="email-sender" value=""
+							placeholder="KSTO@NWS.NOAA.GOV" required />
+					</div>
+					<div class="form-group col-md-4">
+						<label class="field_label" for="datetime-local-sent">송신시간(sent)<span style="color:red">*</span></label>
+						<input type="datetime-local" class="form-control" name="header-sent" id="datetime-local-sent"
+							value="2020-09-27T15:15" placeholder="" required />
 					</div>
 				</div>
-			</fieldset>
-			<!--</fieldset>-->
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>경보 업무</legend>
 
-			<fieldset name="altitude_information" data-role="controlgroup" data-type="horizontal" data-mini="true">
-				<legend>고도</legend>
-				<div class="row">
-					<div class="form-group col-md-6">
-						<label class="field_label" for="altitude">고도(altitude)</label>
-						<input type="text" name="altitude" id="altitude" class="form-control" value="" placeholder="" />
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="select-status" class="ui-hidden-accessible">문서용도(Status)<span
+									style="color:red">*</span></label>
+							<select name="header-status" id="select-status" class="form-control" data-mini="true" data-inline="true">
+								<option value="Actual">실제 상황</option>
+								<option value="Exercise">훈련 상황</option>
+								<option value="Test">시스템 시험</option>
+								<option value="Draft">경보 서식</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label for="select-msgType" class="ui-hidden-accessible">문서관리(msgType)<span
+									style="color:red">*</span></label>
+							<select name="header-msgType" id="select-msgType" class="form-control" data-mini="true"
+								data-inline="true">
+								<option value="Alert">신규 경보</option>
+								<option value="Update">경보 메시지 갱신</option>
+								<option value="Cancel">경보 메시지 취소</option>
+							</select>
+						</div>
 					</div>
-					<div class="form-group col-md-6">
-						<label class="field_label" for="ceiling">최고고도(ceiling)</label>
-						<input type="text" name="ceiling" id="ceiling" class="form-control" value="" placeholder="" />
+					<div class="form-group">
+						<label class="field_label" for="text-references">참조(references)</label>
+						<input type="text" class="form-control" name="header-references" id="text-references" value=""
+							placeholder="trinet@caltech.edu,TRI13970876 .1,2003-06-11T20:30:00-07:00" />
+					</div>
+					<div class="form-group">
+						<label class="field_label" for="textarea-note">노트(note)</label>
+						<textarea name="header-note" id="textarea-note" class="form-control" data-mini="true"
+							placeholder=""></textarea>
+					</div>
+				</fieldset>
+
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>수신 제한</legend>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label for="select-scope" class="ui-hidden-accessible">수신대상(Scope)<span style="color:red">*</span></label>
+							<select name="header-scope" id="select-scope" class="form-control" data-mini="true" data-inline="true">
+								<option value="Public">일반인</option>
+								<option value="Restricted">제한된 범위</option>
+								<option value="Private">특정 주소</option>
+							</select>
+						</div>
+						<div class="form-group col-md-6">
+							<label class="field_label" for="text-restriction">특수수신자(restriction)</label>
+							<input type="text" class="form-control" name="header-restriction" id="text-restriction" value=""
+								placeholder="" />
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="field_label" for="text-address">주소(address):</label>
+						<input type="text" class="form-control" name="header-address" id="text-address" value="" placeholder="" />
+					</div>
+				</fieldset>
+
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>기타</legend>
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label class="field_label" for="text-source">근거(source)</label>
+							<input type="text" class="form-control" name="header-source" id="text-source" value="" placeholder="" />
+						</div>
+						<div class="form-group col-md-4">
+							<label class="field_label" for="text-code">처리코드(code)</label>
+							<input type="text" class="form-control" name="header-code" id="text-code" value="" placeholder="" />
+						</div>
+						<div class="form-group col-md-4">
+							<label class="field_label" for="text-incidents">사건이름(incidents)</label>
+							<input type="text" class="form-control" name="header-incidents" id="text-incidents" value=""
+								placeholder="" />
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<!----------------------------- Info Form ----------------------------->
+			<div class="formContainer" style="display: none;">
+				<h3>Info</h3>
+				<div class="form-group col-md-4">
+					<label class="field_label" for="select-language">사용언어(language)</label>
+					<select name="info-language" id="select-language" class="form-control" data-mini="true" data-inline="true">
+						<option value="Korean">한국어 (KR)</option>
+						<option value="en-us">English (US)</option>
+					</select>
+				</div>
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>재난 관련 정보</legend>
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label for="select-category" class="ui-hidden-accessible">대분류(category)<span
+									style="color:red">*</span></label>
+							<select name="info-category" id="select-category" class="form-control" data-mini="true"
+								data-native-menu="false">
+								<option value="Geo">지질</option>
+								<option value="Met">기상</option>
+								<option value="Safety">안전</option>
+								<option value="Security">안보</option>
+								<option value="Rescue">구조</option>
+								<option value="Fire">화재</option>
+								<option value="Health">보건</option>
+								<option value="Env">환경</option>
+								<option value="Transport">교통</option>
+								<option value="Infra">국가 기반 체계</option>
+								<option value="CBRNE">화생방</option>
+								<option value="Other">기타</option>
+							</select>
+						</div>
+						<div class="form-group col-md-8">
+							<label class="field_label" for="text-event">재난유형(event)<span style="color:red">*</span></label>
+							<input type="text" name="info-event" class="form-control" id="text-event" value=""
+								placeholder="SEVERE THUNDERSTORM" required>
+						</div>
+					</div>
+					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+						<legend>사건 분류 코드(eventCode)</legend>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label class="field_label" for="text-eventCode-valueName">코드 정의(valueName)</label>
+								<input type="text" name="info-eventCode-valueName" id="text-eventCode-valueName" class="form-control"
+									value="" placeholder="SAME">
+							</div>
+							<div class="form-group col-md-6">
+								<label class="field_label" for="text-eventCode-value">코드(value)</label>
+								<input type="text" name="info-eventCode-value" id="text-eventCode-value" class="form-control" value=""
+									placeholder="CEM">
+							</div>
+						</div>
+					</fieldset>
+					<div class="form-group">
+						<label class="field_label" for="text-headline">제목(headline)</label>
+						<input type="text" name="info-headline" id="text-headline" class="form-control" value=""
+							placeholder="SEVERE THUNDERSTORM WARNING">
+					</div>
+					<div class="form-group">
+						<label class="field_label" for="textarea-description">재난정보(description)</label>
+						<textarea name="info-description" id="textarea-description" class="form-control" data-mini="true"
+							placeholder="AT 254 PM PDT...NATIONAL WEATHER SERVI CE DOPPLER RADAR INDICATED A SEVERE"></textarea>
+					</div>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="field_label" for="text-area">피해지역(area)</label>
+							<input type="text" name="info-area" id="text-area" class="form-control" value="" placeholder="">
+						</div>
+						<div class="form-group col-md-6">
+							<label class="field_label" for="text-audience">수신대상(audience)</label>
+							<input type="text" name="info-audience" id="text-audience" class="form-control" value="" placeholder="">
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>시간 정보</legend>
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label for="datetime-local-effective" class="ui-hidden-accessible">발령시간(effective)</label>
+							<input type="datetime-local" name="info-effective" id="datetime-local-effective" class="form-control"
+								value="2020-09-27T15:15" placeholder="">
+						</div>
+						<div class="form-group col-md-4">
+							<label for="datetime-local-onset" class="ui-hidden-accessible">위험발생시간(onset)</label>
+							<input type="datetime-local" name="info-onset" id="datetime-local-onset" class="form-control"
+								value="2020-09-27T15:15" placeholder="">
+						</div>
+						<div class="form-group col-md-4">
+							<label for="datetime-local-expires" class="ui-hidden-accessible">경보만료시간(expires)</label>
+							<input type="datetime-local" name="info-expires" id="datetime-local-expires" class="form-control"
+								value="2020-09-27T15:15" placeholder="">
+						</div>
+					</div>
+
+				</fieldset>
+
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>경보 중요도</legend>
+					<div class="row">
+						<div class="form-group col-md-4">
+							<label for="select-urgency" class="ui-hidden-accessible">대응긴급성(Urgency)<span
+									style="color:red">*</span></label>
+							<select name="info-urgency" id="select-urgency" class="form-control" data-mini="true" data-inline="true">
+								<option value="Immediate">즉각적인 대응이 필요함</option>
+								<option value="Expected">한 시간 이내의 빠른 대응이 필요함</option>
+								<option value="Future">근시일 내의 대응이 필요함</option>
+								<option value="Past">대응이 필요 없음</option>
+								<option value="Unknown">미상</option>
+							</select>
+						</div>
+						<div class="form-group col-md-4">
+							<label for="select-severity" class="ui-hidden-accessible">예상피해(Severity)<span
+									style="color:red">*</span></label>
+							<select name="info-severity" id="select-severity" class="form-control" data-mini="true"
+								data-inline="true">
+								<option value="Extreme">이례적인 피해</option>
+								<option value="Severe">심각한 피해</option>
+								<option value="Moderate">피해 가능성 존재</option>
+								<option value="Minor">피해 가능성 낮음</option>
+								<option value="Unknown">미상</option>
+							</select>
+						</div>
+						<div class="form-group col-md-4">
+							<label for="select-certainty" class="ui-hidden-accessible">발생확률(Certainty)<span
+									style="color:red">*</span></label>
+							<select name="info-certainty" id="select-certainty" class="form-control" data-mini="true"
+								data-inline="true">
+								<option value="Unknown">-발생 확률-</option>
+								<option value="Observed">이미 발생하였거나 진행 중</option>
+								<option value="Likely">50%를 초과하는 가능성</option>
+								<option value="Possible">50% 이하의 가능성</option>
+								<option value="Unlikely">희박한 가능성</option>
+								<option value="Unknown">미상</option>
+							</select>
+						</div>
+				</fieldset>
+
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>대응 관련</legend>
+					<div class="form-group">
+						<label for="select-responseType" class="ui-hidden-accessible">대응유형(ResponseType)</label>
+						<select name="info-responseType" id="select-responseType" class="form-control" data-mini="true"
+							data-native-menu="false">
+							<option value="None">미선택</option>
+							<option value="Shelter">지역 대피소 또는 &lt;instruction&gt;에 있는 대피소로 대피</option>
+							<option value="Evacuate">&lt;instruction&gt;의 내용에 따라 대피</option>
+							<option value="Prepare">&lt;instruction&gt;의 내용을 따라 대비</option>
+							<option value="Execute">&lt;instruction&gt;에 지시하는 사전에 작성된 계획을 수행</option>
+							<option value="Avoid">&lt;instruction&gt;의 내용에 따라 사건을 피할 것</option>
+							<option value="Monitor">&lt;instruction&gt;에 알려주는 정보 제공자로부터의 정보에 주의를 기울일 것</option>
+							<option value="AllClear">본 사건은 더 이상 위험하지 않음. &lt;instruction&gt;에 설명한 대로 행동할 것</option>
+							<option value="None">특별한 대응이 필요 없음</option>
+							<option value="Assess">이 경보 메시지에 있는 정보를 평가할 것(이 값은 대국민 경보에 사용하지 말 것을 권장한다)</option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label class="field_label" for="text-instruction">대응요령(instruction)</label>
+						<input type="text" name="info-instruction" id="text-instruction" class="form-control" value=""
+							placeholder="TAKE COVER IN A SUBSTANTIAL SHELTER UNT IL THE STORM PASSES.">
+					</div>
+				</fieldset>
+
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>추가 정보</legend>
+
+					<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+						<legend>파라미터(parameter)</legend>
+						<div class="row">
+							<div class="form-group col-md-6">
+								<label class="field_label" for="text-prameterValueName">데이터이름(valueName)</label>
+								<input type="text" name="info-parameter-valueName" id="text-prameterValueName" class="form-control"
+									value="" placeholder="Magnitude">
+							</div>
+							<div class="form-group col-md-6">
+								<label class="field_label" for="text-parameterValue">데이터값(value)</label>
+								<input type="text" name="info-parameter-value" id="text-parameterValue" class="form-control" value=""
+									placeholder="3.4 Ml">
+							</div>
+						</div>
+					</fieldset>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="field_label" for="text-resource">추가정보(resource)</label>
+							<input type="text" name="info-resource" id="text-resource" class="form-control" value="" placeholder="">
+						</div>
+						<div class="form-group col-md-6">
+							<label class="field_label" for="url-web">웹링크(web)</label>
+							<input type="url" name="info-web" id="url-web" class="form-control" value="" placeholder="https://">
+						</div>
+					</div>
+				</fieldset>
+
+				<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>발행자(행정)관련</legend>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="field_label" for="text-senderName">발령자(senderName)</label>
+							<input type="text" name="info-senderName" class="form-control" id="text-senderName" value=""
+								placeholder="NATIONAL WEATHER SERVICE SACRAMENTO CA">
+						</div>
+						<div class="form-group col-md-6">
+							<label class="field_label" for="text-contact">담당자(contact)</label>
+							<input type="text" name="info-contact" class="form-control" id="text-contact" value=""
+								placeholder="BARUFFALDI/JUSKIE">
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<!----------------------------- Resource Form ----------------------------->
+			<div class="formContainer" style="display: none;">
+				<h3>Resouce</h3>
+				<div class="row">
+					<div class="form-group col-md-4">
+						<label class="field_label" for="text-resouceDesc">자료형태(resouceDesc)<span style="color:red">*</span></label>
+						<input type="text" name="resource-resouceDesc" id="text-resouceDesc" class="form-control" value=""
+							placeholder="Image file (GIF)" required />
+					</div>
+					<div class="form-group col-md-4">
+						<label class="field_label" for="text-mimeType">형식(mimeType)<span style="color:red">*</span></label>
+						<input type="text" name="resource-mimeType" id="text-mimeType" class="form-control" value=""
+							placeholder="image/gif" required />
+					</div>
+					<div class="form-group col-md-4">
+						<label class="field_label" for="text-size">크기(size)</label>
+						<input type="text" name="resource-size" id="text-size" class="form-control" value="" placeholder="" />
 					</div>
 				</div>
-			</fieldset>
-			<div class="form-group">
-				<label class="field_label" for="file_name">파일 이름(file_name)<span style="color:red">*</span>: <small>xml로 저장할 때 파일의 이름</small></label>
-				<input type="text" name="file_name" id="file_name" class="form-control" value="" placeholder="filename" />
+				<div class="form-group">
+					<label class="field_label" for="url-uri">링크(uri)</label>
+					<input type="url" name="resource-uri" id="url-uri" class="form-control" value=""
+						placeholder="http://www.dhs.gov/dhspublic/getAdvisoryImage" />
+				</div>
+
+				<p>Resource file 직접 넣기 (image or audio를 Base64 Encoding 후 derefUri 요소로 전송)</p>
+				<button class="btn btn-secondary" onclick="openTextFile()">Resource File Open</button>
+				<!--
+				<br>
+				<hr><br>
+				<div>
+					<h1>Base64 Encode String</h1>
+					<div id='output'></div>
+				</div>
+				<br>
+				<hr><br>
+				-->
+				<div>
+					<p>Check selected image or audio</p>
+					<img id="targetImg" src="images/selected_image.PNG">
+					<audio id="targetAudio" autoplay controls>
+						The “audio” tag is not supported by your browser.
+					</audio>
+				</div>
+
+				<div class="form-group">
+					<label class="field_label" for="textarea-derefUri">파일(derefUri) - base64 encoding format</label>
+					<textarea name="resource-derefUri" id="textarea-derefUri" class="form-control" value=""
+						placeholder=""></textarea>
+				</div>
+				<div class="form-group">
+					<label class="field_label" for="text-digest">디지털서명(digest)</label>
+					<input type="text" name="resource-digest" id="text-digest" class="form-control" value=""
+						placeholder="'Resource File Open' 버튼을 통해 Base64 Encoding 지원함" />
+				</div>
 			</div>
-			<div id="map_canvas" style="width: 600px; height: 400px"></div>
-			<br>
-			<a class="btn btn-primary" href="http://localhost:5501/info.html" role="button">Previous</a>
-			<a class="btn btn-primary" href="http://localhost:5501/resource.html" role="button">Next</a>
-			<input class="btn btn-primary" type="submit" role="button" value="제출" />
-			<br>
-			<br>
-			<h4>서버에 저장된 CAP 파일 리스트</h4>
-			<p><small>(클릭하면 지도에 해당 CAP의 지역를 표시합니다.)</small></p>
-			<ul id="file_list">
-				<% for(let i=0; i<file_list.length; i++){ %>
-				<li>
-					<a class="file_list" href="#map_canvas" id=<%= "file_list_" + i %>><%= file_list[i].FILE_NAME %></a>
-				</li>
-				<% } %>
-			</ul>
+			<!----------------------------- Area Form ----------------------------->
+			<div class="formContainer" style="display: block;">
+				<h3>Area</h3>
+				<!--<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true">
+				<legend>지역</legend>-->
+				<div class="form-group">
+					<label class="field_label" for="areaDesc">지역명(areaDesc)<span style="color:red">*</span></label>
+					<textarea name="areaDesc" id="areaDesc" class="form-control" data-mini="true"
+						placeholder="EXTREME NORTH CENTRAL TUOLU MNE COUNTY IN CALIFORNIA, EXTREME NOR THEASTERN 915 CALAVERAS COUNTY IN CALI FORNIA, SOUTHWESTERN ALPINE COUNTY IN CALIFORNIA"
+						required></textarea>
+				</div>
+				<div class="form-group">
+					<label class="field_label" for="capPolygon">다각형(polygon)</label>
+					<input onchange="makeXML();" type="text" name="capPolygon" id="capPolygon" class="form-control" value=""
+						placeholder="38.47,-120.14 38.34,-119.95 38.52,-119.74 38.62,-119.89 38.47,-120.14" />
+				</div>
+				<div class="form-group">
+					<label class="field_label" for="capCircle">원(circle)</label>
+					<input onchange="makeXML();" type="text" name="capCircle" id="capCircle" class="form-control" value=""
+						placeholder="중심, 반지름" />
+				</div>
+				<fieldset name="geocode_information" data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>지역코드(geocode)</legend>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="field_label" for="geocodeValueName">데이터이름(valueName)</label>
+							<input type="text" name="geocodeValueName" id="geocodeValueName" class="form-control" value=""
+								placeholder="SAME" />
+						</div>
+						<div class="form-group col-md-6">
+							<label class="field_label" for="geocodeValue">데이터값(value)</label>
+							<input type="text" name="geocodeValue" id="geocodeValue" class="form-control" value=""
+								placeholder="006003" />
+						</div>
+					</div>
+				</fieldset>
+				<!--</fieldset>-->
+				<fieldset name="altitude_information" data-role="controlgroup" data-type="horizontal" data-mini="true">
+					<legend>고도</legend>
+					<div class="row">
+						<div class="form-group col-md-6">
+							<label class="field_label" for="altitude">고도(altitude)</label>
+							<input type="text" name="altitude" id="altitude" class="form-control" value="" placeholder="" />
+						</div>
+						<div class="form-group col-md-6">
+							<label class="field_label" for="ceiling">최고고도(ceiling)</label>
+							<input type="text" name="ceiling" id="ceiling" class="form-control" value="" placeholder="" />
+						</div>
+					</div>
+				</fieldset>
+				<div class="form-group">
+					<label class="field_label" for="file_name">파일 이름(file_name)<span style="color:red">*</span>: <small>xml로 저장할 때
+							파일의 이름</small></label>
+					<input type="text" name="file_name" id="file_name" class="form-control" value="" placeholder="filename"
+						required />
+				</div>
+				<div id="map_canvas" style="width: 600px; height: 400px"></div>
+				<br>
+				<h4>서버에 저장된 CAP 파일 리스트</h4>
+				<p><small>(클릭하면 지도에 해당 CAP의 지역를 표시합니다.)</small></p>
+				<ul id="file_list">
+					<% for(let i=0; i<file_list.length; i++){ %>
+					<li>
+						<a class="file_list" href="#map_canvas" id=<%= "file_list_" + i %>><%= file_list[i].FILE_NAME %></a>
+					</li>
+					<% } %>
+				</ul>
+			</div>
+			<!----------------------------- Form End ----------------------------->
+			<a id="previousButton" class="btn btn-primary" href="javascript:previousDisplay()" role="button"
+				style="display: none;">Previous</a>
+			<a id="nextButton" class="btn btn-primary" href="javascript:nextDisplay();" role="button">Next</a>
+			<input id="submitButton" class="btn btn-success" type="submit" role="button" value="제출"
+				style="display: none; float: right;" />
 		</form>
 		<footer class="my-5 pt-5 text-muted text-center text-small">
 			<p class="mb-1">COPYRIGHT © 2020 MINCHAN ALL RIGHTS RESERVED.</p>
@@ -150,6 +521,7 @@
 			initializeMap('36.57, 127.56', '7');
 			//setSelectors();
 			//makeXML();
+			$('.formContainer')[3].style.display = 'none';
 		}
 
 		// 파일 리스트 중 하나가 클릭되면 ajax 수행
@@ -170,26 +542,114 @@
 				success: function (result) {
 					if (result['result'] == true) {
 						deleteCapPolygon(); // map의 polygon 지움
-						if(result.info.POLYGON != null){
+						if (result.info.POLYGON != null) {
 							// 서버에서 받은 polygon 정보로 map에 polygon을 그리고 그 정보를 polygon input element에 넣음
 							document.capForm.capPolygon.value = polygonGivenByForm(result.info.POLYGON);
-						}else{
+						} else {
 							// 서버에서 받은 polygon 정보가 null이면 polygon input element을 빈칸으로 만듬
 							document.capForm.capPolygon.value = "";
 						}
 						deleteCapCircle(); // map의 circle 지움
-						if(result.info.CIRCLE != null){
+						if (result.info.CIRCLE != null) {
 							// 서버에서 받은 circle 정보로 map에 circle을 그리고 그 정보를 circle input element에 넣음
 							document.capForm.capCircle.value = circleGivenByForm(result.info.CIRCLE);
-						}else{
+						} else {
 							// 서버에서 받은 circle 정보가 null이면 circle input element을 빈칸으로 만듬
 							document.capForm.capCircle.value = "";
 						}
 					}
 				}
 			});
-
 		});
+
+		// Previous 버튼 누르면 시행
+		function previousDisplay() {
+			let formContainerArray = $('.formContainer');
+			//console.log(formContainerArray);
+			let i = 0;
+			while (true) {
+				//console.log(formContainerArray[i]);
+				if (formContainerArray[i].style.display != 'none') {
+					formContainerArray[i].style.display = 'none';
+					formContainerArray[i - 1].style.display = 'block';
+					// 현재 첫 페이지의 다음 페이지에 있는 상태에서, Previous 버튼을 눌렀다면
+					if (i == 1) {
+						$('#previousButton').css('display', 'none');
+					}
+					// 현재 마지막 페이지에 있는 상태에서, Previous 버튼을 눌렀다면
+					if (i == 3) {
+						$('#nextButton').css('display', 'inline-block');
+						$('#submitButton').css('display', 'none');
+					}
+					break;
+				}
+				i = i + 1;
+			}
+		}
+
+		// Next 버튼 누르면 시행
+		function nextDisplay() {
+			let formContainerArray = $('.formContainer');
+			//console.log(formContainerArray);
+			let i = 0;
+			while (true) {
+				//console.log(formContainerArray[i]);
+				if (formContainerArray[i].style.display != 'none') {
+					formContainerArray[i].style.display = 'none';
+					formContainerArray[i + 1].style.display = 'block';
+					// 현재 마지막 페이지의 전 페이지에 있는 상태에서, Next 버튼을 눌렀다면
+					if (i == 2) {
+						$('#nextButton').css('display', 'none');
+						$('#submitButton').css('display', 'inline-block');
+					}
+					// 현재 마지막 페이지에 있는 상태에서, Next 버튼을 눌렀다면
+					if (i == 0) {
+						$('#previousButton').css('display', 'inline-block');
+					}
+					break;
+				}
+				i = i + 1;
+			}
+		}
+
+		function openTextFile() {
+			var input = document.createElement("input");
+
+			input.type = "file";
+			input.accept = "image/*, audio/*";
+			input.id = "uploadInput";
+
+			input.click();
+			input.onchange = function (event) {
+				processFile(event.target.files[0]);
+			};
+
+		}
+
+		function processFile(file) {
+			var reader = new FileReader();
+
+			reader.onload = function () {
+				var result = reader.result;
+				$('#textarea-derefUri').val(result);
+				//output.innerText = result
+				
+				// base64로 encoding된 resource 예시 (1: image, 2: audio)
+				// 1. data:image/jpeg;base64,/9j/4AAQS ~~
+				// 2. data:audio/mpeg;base64,SUQzAwA ~~
+				if (result.substr(5, 1) == "i") { // open된 resource가 image이면
+					document.getElementById('targetImg').setAttribute("src", result);
+					document.getElementById('targetAudio').setAttribute("src", "");
+					$('#targetImg').css('max-width', '100%');
+					
+				} else {
+					document.getElementById('targetImg').setAttribute("src", "images/selected_image.PNG");
+					document.getElementById('targetAudio').setAttribute("src", result);
+				}
+			};
+			reader.readAsDataURL(file);
+		}
+
 	</script>
 </body>
 

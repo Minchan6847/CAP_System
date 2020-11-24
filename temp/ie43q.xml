@@ -1,0 +1,47 @@
+﻿<?xml version='1.0'?>
+<alert>
+    <identifier>iutt</identifier>
+    <sender>yt@ww</sender>
+    <sent>2020-09-27T15:15</sent>
+    <status>Actual</status>
+    <msgType>Alert</msgType>
+    <scope>Private</scope>
+    <info>
+        <language>Korean</language>
+        <category>Geo</category>
+        <event>rrr</event>
+        <headline>d</headline>
+        <description>d</description>
+        <effective>2020-09-27T15:15</effective>
+        <onset>2020-09-27T15:15</onset>
+        <expires>2020-09-27T15:15</expires>
+        <urgency>Immediate</urgency>
+        <severity>Extreme</severity>
+        <certainty>Unknown</certainty>
+        <responseType>None</responseType>
+        <resource>
+            <resouceDesc>dd</resouceDesc>
+            <mimeType>dd</mimeType>
+            <derefUri>ww</derefUri>
+            <digest>ww</digest>
+        </resource>
+        <eventCode>
+            <valueName>er</valueName>
+            <value>we</value>
+        </eventCode>
+        <parameter>
+            <valueName>dr</valueName>
+            <value>dr</value>
+        </parameter>
+        <area>
+            <areaDesc>rdq</areaDesc>
+            <circle>36.8093,126.9690 87</circle>
+            <geocode>
+                <valueName>d</valueName>
+                <value>12345</value>
+            </geocode>
+            <altitude>2</altitude>
+            <ceiling>1</ceiling>
+        </area>
+    </info>
+</alert>

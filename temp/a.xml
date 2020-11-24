@@ -1,0 +1,31 @@
+﻿<?xml version='1.0'?>
+<alert>
+    <identifier>a</identifier>
+    <sender>a@a</sender>
+    <sent>2020-09-27T15:15</sent>
+    <status>Actual</status>
+    <msgType>Alert</msgType>
+    <scope>Public</scope>
+    <info>
+        <language>Korean</language>
+        <category>Geo</category>
+        <event>aa</event>
+        <effective>2020-09-27T15:15</effective>
+        <onset>2020-09-27T15:15</onset>
+        <expires>2020-09-27T15:15</expires>
+        <urgency>Immediate</urgency>
+        <severity>Extreme</severity>
+        <certainty>Unknown</certainty>
+        <responseType>None</responseType>
+        <eventCode/>
+        <parameter/>
+        <resource>
+            <resouceDesc>a</resouceDesc>
+            <mimeType>a</mimeType>
+        </resource>
+        <area>
+            <areaDesc>a</areaDesc>
+            <circle>36.0136,128.4027 34</circle>
+        </area>
+    </info>
+</alert>

@@ -14,7 +14,7 @@ exports.js2xml = (tag, data) => {//tag: xml로 저장할 때의 파일명, data:
 	//console.log(js2xmlparser.parse("item", JSON.parse(data)));
 
 	// js 객체를 xml string으로 변환
-	let result = js2xmlparser.parse("area", data);
+	let result = js2xmlparser.parse("alert", data);
 	// tag 명칭 변경
 	/*
 	result = result.replace(/NAME/g, 'name');

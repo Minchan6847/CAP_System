@@ -1,0 +1,18 @@
+﻿<?xml version='1.0'?>
+<area>
+    <datetime-local-sent>2020-09-27T15:15</datetime-local-sent>
+    <select-status>Actual</select-status>
+    <select-msgType>Alert</select-msgType>
+    <select-scope>Public</select-scope>
+    <select-language>Korean</select-language>
+    <select-category>Geo</select-category>
+    <datetime-local-effective>2020-09-27T15:15</datetime-local-effective>
+    <datetime-local-onset>2020-09-27T15:15</datetime-local-onset>
+    <datetime-local-expires>2020-09-27T15:15</datetime-local-expires>
+    <select-urgency>Immediate</select-urgency>
+    <select-severity>Extreme</select-severity>
+    <select-certainty>Unknown</select-certainty>
+    <select-responseType>None</select-responseType>
+    <areaDesc>dd</areaDesc>
+    <polygon>36.91476,127.16675 36.91476,127.69409 37.31775,127.69409 37.31775,127.16675 36.91476,127.16675</polygon>
+</area>

@@ -1,0 +1,40 @@
+﻿<?xml version='1.0'?>
+<alert>
+    <identifier>qq</identifier>
+    <sender>qq@qq</sender>
+    <sent>2020-09-27T15:15</sent>
+    <status>Exercise</status>
+    <msgType>Update</msgType>
+    <references>qwq</references>
+    <note>w</note>
+    <scope>Public</scope>
+    <source>ww</source>
+    <info>
+        <language>Korean</language>
+        <category>Geo</category>
+        <event>qw</event>
+        <eventCode>1212</eventCode>
+        <headline>wqq</headline>
+        <description>aa</description>
+        <effective>2020-09-27T15:15</effective>
+        <onset>2020-09-27T15:15</onset>
+        <expires>2020-09-27T15:15</expires>
+        <urgency>Immediate</urgency>
+        <severity>Extreme</severity>
+        <certainty>Unlikely</certainty>
+        <responseType>None</responseType>
+        <parameter>
+            <valueName>qwqw</valueName>
+            <value>11a</value>
+        </parameter>
+        <resource>
+            <resouceDesc>ass</resouceDesc>
+            <mimeType>as</mimeType>
+        </resource>
+        <area>
+            <areaDesc>qq11</areaDesc>
+            <polygon>36.84446,127.74902 36.84446,128.49609 37.16907,128.49609 37.16907,127.74902 36.84446,127.74902</polygon>
+            <circle>36.1645,127.4744 38</circle>
+        </area>
+    </info>
+</alert>
