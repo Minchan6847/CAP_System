@@ -339,7 +339,7 @@
 			</div>
 			<!----------------------------- Resource Form ----------------------------->
 			<div class="formContainer" style="display: none;">
-				<h3>Resouce</h3>
+				<h3>Resource</h3>
 				<div class="row">
 					<div class="form-group col-md-4">
 						<label class="field_label" for="text-resouceDesc">자료형태(resouceDesc)<span style="color:red">*</span></label>
@@ -363,7 +363,7 @@
 				</div>
 
 				<p>Resource file 직접 넣기 (image or audio를 Base64 Encoding 후 derefUri 요소로 전송)</p>
-				<button class="btn btn-secondary" onclick="openTextFile()">Resource File Open</button>
+				<button class="btn btn-secondary" onclick="openResourceFile()">Resource File Open</button>
 				<!--
 				<br>
 				<hr><br>
@@ -612,7 +612,8 @@
 			}
 		}
 
-		function openTextFile() {
+		// resource file을 open하고 processFile() 함수 실행
+		function openResourceFile() {
 			var input = document.createElement("input");
 
 			input.type = "file";
@@ -626,6 +627,8 @@
 
 		}
 
+		// open한 resource file을 base64 encoding해서 derefUri textarea에 입력
+		// 추가로 open한 resource file의 미리보기 제공
 		function processFile(file) {
 			var reader = new FileReader();
 

@@ -34,6 +34,7 @@ module.exports.queryExecution = function (data) {
       console.log(result.rows);
       console.log(result.rowsAffected); // insert query가 잘 수행되었으면 1, 아니면 0
 
+      // post로 받은 CAP 정보를 XML로 변환하기 위해 적절하게 객체화
       if (result.rowsAffected == 1) {
 				
         let dataForXml = new Object();
@@ -129,6 +130,7 @@ module.exports.queryExecution = function (data) {
 
         // 위 과정을 거쳐 만들어진 sending_data2를 xml로 변환해 서버에 xml 파일을 저장
         //js2xml.js2xml(data.file_name, sending_data2);
+        // 위 과정을 거쳐 만들어진 dataForXml를 xml로 변환해 서버에 xml 파일을 저장
         js2xml.js2xml(data.file_name, dataForXml);
       }
     } catch (err) {
