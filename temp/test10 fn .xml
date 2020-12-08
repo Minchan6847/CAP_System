@@ -1,9 +1,0 @@
-﻿<?xml version='1.0'?>
-<area>
-    <areaDesc>test10 ad</areaDesc>
-    <polygon>30.6757,106.1279 30.6757,113.4229 36.7389,113.4229 36.7389,106.1279 30.6757,106.1279</polygon>
-    <geocode>
-        <valueName>d</valueName>
-        <value>1</value>
-    </geocode>
-</area>

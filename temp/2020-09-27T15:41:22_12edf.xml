@@ -1,8 +1,8 @@
-﻿<?xml version='1.0'?>
+<?xml version='1.0'?>
 <alert>
     <identifier>12a</identifier>
     <sender>aw1@as</sender>
-    <sent>2020-09-27T15:15</sent>
+    <sent>2020-09-27T15:41</sent>
     <status>Actual</status>
     <msgType>Alert</msgType>
     <scope>Public</scope>

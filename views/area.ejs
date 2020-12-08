@@ -450,6 +450,7 @@
 						required />
 				</div>
 				<div id="map_canvas" style="width: 600px; height: 400px"></div>
+				<button class="btn btn-secondary"">지도 새로고침</button>
 				<br>
 				<h4>서버에 저장된 CAP 파일 리스트</h4>
 				<p><small>(클릭하면 지도에 해당 CAP의 지역를 표시합니다.)</small></p>
@@ -473,6 +474,10 @@
 		</footer>
 	</div>
 	<script type="text/javascript">
+		// sent element의 input form을 현재 시간으로 설정 (년, 월, 일, 시, 분)
+		// 런던 시간임
+		document.getElementById('datetime-local-sent').value= new Date().toISOString().slice(0, 16);
+
 		// 이 함수는 일반적으로 사용자가 HTML 문서에서 내용을 잘라내어 붙여 넣을 때 발생하는 XML 요소에서 유효하지 않은 마크 업을 제거합니다.
 		// 다시 말해, stiringToXML에 HTML tag가 있으면 제거해서 리턴.
 		function cleanXml(stringToXML) {

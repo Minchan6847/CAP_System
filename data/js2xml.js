@@ -32,7 +32,7 @@ exports.js2xml = (tag, data) => {//tag: xml로 저장할 때의 파일명, data:
 	//console.log(result);
 	// 파일로 저장
 	//fs.writeFileSync(__dirname + '/../temp/' + "phone_book.xml", '\ufeff' + result, {encoding: 'utf8'});
-	fs.writeFileSync(__dirname + '/../temp/' + tag +'.xml', '\ufeff' + result, {encoding: 'utf8'});
+	fs.writeFileSync(__dirname + '/../temp/' + new Date().toISOString().slice(0, 19) + '_' + tag +'.xml', '\ufeff' + result, {encoding: 'utf8'});
 	console.log('export to xml - complete!');
 }
 

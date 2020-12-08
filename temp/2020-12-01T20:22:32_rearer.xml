@@ -1,8 +1,8 @@
-﻿<?xml version='1.0'?>
+<?xml version='1.0'?>
 <alert>
     <identifier>re</identifier>
     <sender>re@ee</sender>
-    <sent>2020-09-27T15:15</sent>
+    <sent>2020-12-01T20:22</sent>
     <status>Test</status>
     <msgType>Cancel</msgType>
     <scope>Restricted</scope>
