@@ -1,10 +1,10 @@
 # CAP_System
 
+**English** | [한국어](README.ko.md)
+
 Web editor and server of a disaster alert system built on the **Common Alerting Protocol (CAP)**, the international XML standard for emergency alerts.
 
 Solo semester project for the Software System Lab course at the University of Seoul, September to December 2020. The mobile app that displays the alerts is in [CAP_Presenter](https://github.com/Minchan6847/CAP_Presenter).
-
-> 한국어 요약: CAP(Common Alerting Protocol) 표준 기반 재난경보 시스템의 경보 작성 웹과 웹서버입니다. 2020년 2학기 서울시립대학교 소프트웨어시스템실습 과목에서 수행한 개인 프로젝트이며, 표출 앱은 [CAP_Presenter](https://github.com/Minchan6847/CAP_Presenter)에 있습니다.
 
 ## What it does
 
