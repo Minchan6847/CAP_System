@@ -61,7 +61,40 @@ Ubuntu 20.04의 Oracle Database 11g Express Edition을 대상으로 개발했고
 ## 실행
 
 1. Node.js와 `node-oracledb`에 필요한 Oracle Instant Client를 설치합니다.
-2. `area` table을 만듭니다. column은 순서대로 8개입니다: 파일 이름, area 설명, polygon, circle, geocode value name, geocode value, altitude, ceiling.
+2. `area` table을 만듭니다. column은 8개입니다.
+
+### `area` 테이블
+
+구역(Area) 정보를 저장하는 테이블로, [`views/area.ejs`](views/area.ejs)에서 전송된 폼 데이터가 [`routes/send.js`](routes/send.js) (`POST /`)를 거쳐 [`db/db_conn.js`](db/db_conn.js)의 `sending_data` 배열 순서대로 `INSERT`됩니다.
+
+| 컬럼명 | 데이터 타입 | Null 여부 | 전송 데이터 (`sending_data`) |
+| :--- | :--- | :---: | :--- |
+| `FILE_NAME` | `VARCHAR2(255)` | `NOT NULL` | `data.file_name` |
+| `AREA_DESC` | `VARCHAR2(300)` | `NOT NULL` | `data.areaDesc` |
+| `POLYGON` | `VARCHAR2(300)` | Nullable | `data.capPolygon` |
+| `CIRCLE` | `VARCHAR2(200)` | Nullable | `data.capCircle` |
+| `GEOCODE_VALUE_NAME` | `VARCHAR2(30)` | Nullable | `data.geocodeValueName` |
+| `GEOCODE_VALUE` | `NUMBER(38)` | Nullable | `data.geocodeValue` |
+| `ALTITUDE` | `NUMBER(38)` | Nullable | `data.altitude` |
+| `CEILING` | `NUMBER(38)` | Nullable | `data.ceiling` |
+
+#### 테이블 생성 (Oracle DB 서버)
+
+Oracle DB 서버는 웹 서버와 분리되어 있으므로, `INSERT` 요청 처리 전에 DB 서버의 대상 스키마에서 먼저 아래 쿼리로 테이블을 생성합니다. (웹 서버에서는 `npm install` 후 `npm start`로 실행합니다.)
+
+```sql
+CREATE TABLE area (
+  FILE_NAME          VARCHAR2(255) NOT NULL,
+  AREA_DESC          VARCHAR2(300) NOT NULL,
+  POLYGON            VARCHAR2(300),
+  CIRCLE             VARCHAR2(200),
+  GEOCODE_VALUE_NAME VARCHAR2(30),
+  GEOCODE_VALUE      NUMBER(38),
+  ALTITUDE           NUMBER(38),
+  CEILING            NUMBER(38)
+);
+```
+
 3. `db/dbCofig.js`에 본인의 접속 설정을 넣습니다.
 4. 설치하고 시작합니다.
 
