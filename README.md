@@ -61,7 +61,40 @@ Developed against Oracle Database 11g Express Edition on Ubuntu 20.04, with the 
 ## Run
 
 1. Install Node.js and the Oracle Instant Client that `node-oracledb` needs.
-2. Create the `area` table. It has eight columns in this order: file name, area description, polygon, circle, geocode value name, geocode value, altitude, ceiling.
+2. Create the `area` table. It has eight columns.
+
+### `area` Table
+
+Stores area data submitted from the form in [`views/area.ejs`](views/area.ejs), received by [`routes/send.js`](routes/send.js) (`POST /`), and inserted via [`db/db_conn.js`](db/db_conn.js) in the order of the `sending_data` array.
+
+| Column | Data Type | Nullable | Payload Field (`sending_data`) |
+| :--- | :--- | :---: | :--- |
+| `FILE_NAME` | `VARCHAR2(255)` | `NOT NULL` | `data.file_name` |
+| `AREA_DESC` | `VARCHAR2(300)` | `NOT NULL` | `data.areaDesc` |
+| `POLYGON` | `VARCHAR2(300)` | Yes | `data.capPolygon` |
+| `CIRCLE` | `VARCHAR2(200)` | Yes | `data.capCircle` |
+| `GEOCODE_VALUE_NAME` | `VARCHAR2(30)` | Yes | `data.geocodeValueName` |
+| `GEOCODE_VALUE` | `NUMBER(38)` | Yes | `data.geocodeValue` |
+| `ALTITUDE` | `NUMBER(38)` | Yes | `data.altitude` |
+| `CEILING` | `NUMBER(38)` | Yes | `data.ceiling` |
+
+#### Table Creation (Oracle DB Server)
+
+Because the Oracle database server is separate from the web server, create the `area` table in the target schema first before processing `INSERT` requests. On the web server, install dependencies and start the app with `npm install` and `npm start`.
+
+```sql
+CREATE TABLE area (
+  FILE_NAME          VARCHAR2(255) NOT NULL,
+  AREA_DESC          VARCHAR2(300) NOT NULL,
+  POLYGON            VARCHAR2(300),
+  CIRCLE             VARCHAR2(200),
+  GEOCODE_VALUE_NAME VARCHAR2(30),
+  GEOCODE_VALUE      NUMBER(38),
+  ALTITUDE           NUMBER(38),
+  CEILING            NUMBER(38)
+);
+```
+
 3. Put your own connection settings in `db/dbCofig.js`.
 4. Install and start:
 
